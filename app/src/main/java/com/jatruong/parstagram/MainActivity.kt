@@ -8,10 +8,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.FileProvider
 import com.jatruong.parstagram.model.Post
 import com.parse.*
@@ -26,11 +23,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val pb = findViewById<ProgressBar>(R.id.pbLoading)
         findViewById<Button>(R.id.btnSubmit).setOnClickListener {
             val description = findViewById<EditText>(R.id.description).text.toString()
             val user = ParseUser.getCurrentUser()
             if (photoFile != null) {
+                pb.visibility = ProgressBar.VISIBLE
                 submitPost(description, user, photoFile!!)
+                pb.visibility = ProgressBar.INVISIBLE
             } else {
                 Log.e(TAG, "no photo to send")
                 Toast.makeText(this, "No photo with post", Toast.LENGTH_SHORT).show()
@@ -56,6 +56,9 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Error saving post", Toast.LENGTH_SHORT).show()
             } else {
                 Log.i(TAG, "Successfully saved post")
+                Toast.makeText(this, "Post saved", Toast.LENGTH_SHORT).show()
+                findViewById<EditText>(R.id.description).text.clear()
+                findViewById<ImageView>(R.id.imageView).setImageDrawable(null)
             }
         }
     }
