@@ -1,26 +1,17 @@
 package com.jatruong.parstagram
 
-import android.content.Intent
-import android.graphics.BitmapFactory
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
-import android.util.Log
-import android.view.MenuItem
+import android.view.Menu
 import android.widget.*
-import androidx.core.content.FileProvider
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jatruong.parstagram.fragments.ComposeFragment
 import com.jatruong.parstagram.fragments.FeedFragment
 import com.jatruong.parstagram.fragments.ProfileFragment
-import com.jatruong.parstagram.model.Post
 import com.parse.*
-import java.io.File
 
 class MainActivity : AppCompatActivity() {
 

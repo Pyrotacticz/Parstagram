@@ -1,11 +1,20 @@
 package com.jatruong.parstagram.fragments
 
+import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.jatruong.parstagram.model.Post
+import com.parse.Parse
 import com.parse.ParseQuery
 import com.parse.ParseUser
 
 class ProfileFragment : FeedFragment() {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().title = ParseUser.getCurrentUser().username
+
+    }
 
     override fun queryPosts() {
         // specify class to query

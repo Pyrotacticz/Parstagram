@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jatruong.parstagram.model.Post
 
-class PostAdapter(val context: Context, val posts: List<Post>)
+class PostAdapter(val context: Context, val posts: MutableList<Post>)
     : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     class ViewHolder(iView: View) : RecyclerView.ViewHolder(iView) {
         val tvUsername: TextView
@@ -46,4 +46,13 @@ class PostAdapter(val context: Context, val posts: List<Post>)
         return posts.size
     }
 
+    fun clear() {
+        posts.clear()
+        notifyDataSetChanged()
+    }
+
+    fun addAll(newPosts : List<Post>) {
+        posts.addAll(newPosts)
+        notifyDataSetChanged()
+    }
 }

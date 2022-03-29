@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jatruong.parstagram.MainActivity
 import com.jatruong.parstagram.PostAdapter
 import com.jatruong.parstagram.R
@@ -18,6 +19,7 @@ import com.parse.ParseUser
 open class FeedFragment : Fragment() {
     lateinit var postsRecyclerView: RecyclerView
     lateinit var adapter: PostAdapter
+    lateinit var swipeContainer: SwipeRefreshLayout
     var allPosts: MutableList<Post> = mutableListOf()
 
     override fun onCreateView(
@@ -30,14 +32,30 @@ open class FeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().title = "Parstagram"
 
         postsRecyclerView = view.findViewById<RecyclerView>(R.id.postsRecyclerView)
         adapter = PostAdapter(requireContext(), allPosts)
         postsRecyclerView.adapter = adapter
+        swipeContainer = view.findViewById(R.id.swipeContainer)
+        swipeContainer.setOnRefreshListener {
+            queryNewPosts()
+        }
+
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+            android.R.color.holo_green_light,
+            android.R.color.holo_orange_light,
+            android.R.color.holo_red_light);
 
         postsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         queryPosts()
+    }
+
+    private fun queryNewPosts() {
+        adapter.clear()
+        queryPosts()
+        swipeContainer.isRefreshing = false
     }
 
     open fun queryPosts() {

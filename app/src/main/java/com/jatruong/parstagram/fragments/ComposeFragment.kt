@@ -39,6 +39,7 @@ class ComposeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().title = "Compose Post"
         // set onclicklisteners and setup logic
 
         ivPreview = view.findViewById(R.id.imageView)
