@@ -17,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jatruong.parstagram.fragments.ComposeFragment
 import com.jatruong.parstagram.fragments.FeedFragment
+import com.jatruong.parstagram.fragments.ProfileFragment
 import com.jatruong.parstagram.model.Post
 import com.parse.*
 import java.io.File
@@ -35,14 +36,13 @@ class MainActivity : AppCompatActivity() {
             var fragment: Fragment? = null
             when (item.itemId) {
                 R.id.action_home -> {
-                    Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
                     fragment = FeedFragment()
                 }
                 R.id.action_compose -> {
                     fragment = ComposeFragment()
                 }
                 R.id.action_profile -> {
-                    Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show()
+                    fragment = ProfileFragment()
                 }
             }
             if (fragment != null) {
@@ -54,25 +54,6 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView.selectedItemId = R.id.action_home
         //queryPosts()
-    }
-
-    fun queryPosts() {
-        // specify class to query
-        val query: ParseQuery<Post> = ParseQuery.getQuery(Post::class.java)
-        // find all post objects
-        query.include(Post.KEY_USER)
-        query.findInBackground { posts, e ->
-            if (e != null) {
-                Log.e(TAG, "Error fetching posts")
-            } else {
-                if (posts != null) {
-                    for (post in posts) {
-                        Log.i(TAG, "Post: " + post.getDescription()
-                                + ", User: " + post.getUser()?.username)
-                    }
-                }
-            }
-        }
     }
 
     companion object {

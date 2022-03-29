@@ -20,7 +20,7 @@ class Post : ParseObject() {
     }
 
     fun getImage(): ParseFile? {
-        return getParseFile("KEY_IMAGE")
+        return getParseFile(KEY_IMAGE)
     }
 
     fun setImage(parsefile: ParseFile) {
