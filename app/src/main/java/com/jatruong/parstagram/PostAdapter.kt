@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jatruong.parstagram.model.Post
 
-class PostAdapter(val context: Context, val posts: MutableList<Post>)
+class PostAdapter(val context: Context, val posts: MutableList<Post>, val grid: Boolean)
     : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     class ViewHolder(iView: View) : RecyclerView.ViewHolder(iView) {
-        val tvUsername: TextView
+        val tvUsername: TextView?
         val ivImage: ImageView
-        val tvDescription: TextView
+        val tvDescription: TextView?
 
         init {
             tvUsername = iView.findViewById(R.id.postOwner)
@@ -25,15 +25,18 @@ class PostAdapter(val context: Context, val posts: MutableList<Post>)
             tvDescription = iView.findViewById(R.id.postDescription)
         }
 
-        fun bind(post: Post) {
-            tvDescription.text = post.getDescription()
-            tvUsername.text = post.getUser()?.username
+        open fun bind(post: Post) {
+            tvDescription?.text = post.getDescription()
+            tvUsername?.text = post.getUser()?.username
             Glide.with(itemView.context).load(post.getImage()?.url).into(ivImage)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false)
+
+        val view = if (!grid) LayoutInflater.from(context).inflate(R.layout.item_post, parent, false)
+        else LayoutInflater.from(context).inflate(R.layout.item_profile_post, parent, false)
+
         return ViewHolder(view)
     }
 

@@ -9,12 +9,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.jatruong.parstagram.MainActivity
 import com.jatruong.parstagram.PostAdapter
 import com.jatruong.parstagram.R
 import com.jatruong.parstagram.model.Post
 import com.parse.ParseQuery
-import com.parse.ParseUser
 
 open class FeedFragment : Fragment() {
     lateinit var postsRecyclerView: RecyclerView
@@ -35,7 +33,7 @@ open class FeedFragment : Fragment() {
         requireActivity().title = "Parstagram"
 
         postsRecyclerView = view.findViewById<RecyclerView>(R.id.postsRecyclerView)
-        adapter = PostAdapter(requireContext(), allPosts)
+        adapter = PostAdapter(requireContext(), allPosts, false)
         postsRecyclerView.adapter = adapter
         swipeContainer = view.findViewById(R.id.swipeContainer)
         swipeContainer.setOnRefreshListener {
